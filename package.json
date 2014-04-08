@@ -1,0 +1,19 @@
+{
+  "name": "node-config",
+  "version": "0.0.0",
+  "description": "Node configuration library for managed applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Morehouse",
+  "license": "MIT",
+  "devDependencies": {
+    "nodeunit": "^0.8.6"
+  },
+  "dependencies": {
+    "coffeeson": "git://github.com/jonmorehouse/coffeeson",
+    "extend": "git://github.com/jonmorehouse/node-extend",
+    "js-yaml": "^3.0.2"
+  }
+}
