@@ -26,8 +26,7 @@ module.exports = (filepath, opts, cb)->
   switch path.extname filepath
     when ".json" then loader = jsonLoader
     when ".cson" then loader = cson
-    when ".yml" then loader = ymlLoader
-    when ".yaml" then loader = ymlLoader
+    when ".yml", ".yaml" then loader = ymlLoader
     else
       return cb new Error "Unrecognized file type"
 
