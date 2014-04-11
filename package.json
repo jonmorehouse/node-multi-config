@@ -2,17 +2,19 @@
   "name": "node-config",
   "version": "0.0.0",
   "description": "Node configuration library for managed applications",
-  "main": "lib/index.coffee",
+  "main": "jslib/index.js",
   "scripts": {
-    "test": "./node_modules/coffee-script/bin/cake test"
+    "prepublish": "cake build"
   },
   "author": "Jon Morehouse",
   "license": "MIT",
   "devDependencies": {
     "nodeunit": "^0.8.6"
   },
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  },
   "dependencies": {
-    "coffee-script": "^1.7.1",
     "coffeeson": "git://github.com/jonmorehouse/coffeeson",
     "extend": "git://github.com/jonmorehouse/node-extend",
     "js-yaml": "^3.0.2"
