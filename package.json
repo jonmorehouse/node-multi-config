@@ -2,9 +2,9 @@
   "name": "node-config",
   "version": "0.0.0",
   "description": "Node configuration library for managed applications",
-  "main": "index.js",
+  "main": "lib/index.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/coffee-script/bin/cake test"
   },
   "author": "Jon Morehouse",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "nodeunit": "^0.8.6"
   },
   "dependencies": {
+    "coffee-script": "^1.7.1",
     "coffeeson": "git://github.com/jonmorehouse/coffeeson",
     "extend": "git://github.com/jonmorehouse/node-extend",
     "js-yaml": "^3.0.2"
