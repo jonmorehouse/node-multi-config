@@ -1,4 +1,6 @@
-module.exports = (key, value)->
+module.exports = (key, value, cb)->
 
   config[key] = value
+  cb?()
+
 

@@ -11,8 +11,11 @@ exports.testSet = (test)->
 
   do test.done
 
+exports.testSetCb = (test)->
 
+  config.set "key", "value", (err)->
 
-
-
+    test.equals false, err?
+    test.equals config.key, "value"
+    do test.done
 
