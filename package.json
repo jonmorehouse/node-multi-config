@@ -1,6 +1,6 @@
 {
   "name": "node-config",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Node configuration library for managed applications",
   "main": "jslib/index.js",
   "scripts": {
