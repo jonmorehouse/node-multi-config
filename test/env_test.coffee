@@ -18,6 +18,17 @@ exports.testEnvArray = (test)->
   do test.done
 
 
+exports.testEnvArrayCb = (test)->
+
+  config.loadFromEnv ["HOME"], (err)->
+
+    test.equal config.home?, true 
+    test.equal config.HOME?, true
+
+    do test.done
+
+
+
 
 
 
