@@ -26,29 +26,30 @@
     }
   };
 
-  module.exports = function(keys, defaultValue) {
-    var envSetter, key, _i, _len, _results;
+  module.exports = function(keys, cb) {
+    var envSetter, key, _i, _len;
     envSetter = function(key) {
-      var objKey;
+      var err, objKey;
       objKey = camelcase(key);
       if (process.env[key] != null) {
         config[objKey] = process.env[key];
         return config[key] = process.env[key];
-      } else if ((config[key] == null) && (defaultValue != null)) {
-        return config[objKey] = defaultValue;
       } else {
-        throw new Error("Invalid key");
+        err = new Error("Invalid key");
+        if (cb != null) {
+          return typeof cb === "function" ? cb(err) : void 0;
+        }
+        throw err;
       }
     };
     if (!typeof keys === 'array') {
       keys = [keys];
     }
-    _results = [];
     for (_i = 0, _len = keys.length; _i < _len; _i++) {
       key = keys[_i];
-      _results.push(envSetter(key));
+      envSetter(key);
     }
-    return _results;
+    return typeof cb === "function" ? cb() : void 0;
   };
 
 }).call(this);
