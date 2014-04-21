@@ -3,9 +3,9 @@ config = projectRequire "index.coffee"
 cson = require 'coffeeson'
 yaml = require 'js-yaml'
 
-exports.loadCsonFile = (test)->
+exports.loadCsonFile = (test) ->
 
-  config.loadFilepath getFixturePath("test.cson"), (done)->
+  config.loadFilepath getFixturePath("test.cson"), (done) ->
     json = getJsonFixture "test.json"
     for key of json
       test.equal config[key]?, true

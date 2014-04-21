@@ -2,11 +2,11 @@ require './bootstrap'
 
 config = projectRequire "index.coffee"
 
-exports.testEnv = (test)->
+exports.testEnv = (test) ->
 
   do test.done
 
-exports.testEnvArray = (test)->
+exports.testEnvArray = (test) ->
 
   keys = ["HOME"]
   config.loadFromEnv keys
@@ -18,9 +18,9 @@ exports.testEnvArray = (test)->
   do test.done
 
 
-exports.testEnvArrayCb = (test)->
+exports.testEnvArrayCb = (test) ->
 
-  config.loadFromEnv ["HOME"], (err)->
+  config.loadFromEnv ["HOME"], (err) ->
 
     test.equal config.home?, true 
     test.equal config.HOME?, true

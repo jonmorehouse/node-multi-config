@@ -3,21 +3,21 @@ cson = require 'coffeeson'
 yaml = require 'js-yaml'
 merge = require './merge'
 
-yamlLoader = (filepath, cb)->
+yamlLoader = (filepath, cb) ->
   try
     obj = yaml.safeLoad filepath
   catch err
     return cb err
   return cb null, obj
 
-jsonLoader = (filepath, cb)->
+jsonLoader = (filepath, cb) ->
   try
     obj = require filepath
   catch err
     return cb err
   cb null, obj
 
-module.exports = (filepath, opts, cb)->
+module.exports = (filepath, opts, cb) ->
 
   if not cb?
     cb = opts
@@ -30,7 +30,7 @@ module.exports = (filepath, opts, cb)->
     else
       return cb new Error "Unrecognized file type"
 
-  loader filepath, (err, obj)->
+  loader filepath, (err, obj) ->
     return cb err if err
     merge obj, opts
     cb null, obj

@@ -1,6 +1,6 @@
 extend = require 'extend'
 
-module.exports = (obj, opts)->
+module.exports = (obj, opts) ->
 
   if not opts? 
     deep = false

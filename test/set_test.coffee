@@ -2,7 +2,7 @@ require './bootstrap'
 
 config = projectRequire "index.coffee"
 
-exports.testSet = (test)->
+exports.testSet = (test) ->
 
   key = "TEST_SET_KEY"
   value = "value"
@@ -11,9 +11,9 @@ exports.testSet = (test)->
 
   do test.done
 
-exports.testSetCb = (test)->
+exports.testSetCb = (test) ->
 
-  config.set "key", "value", (err)->
+  config.set "key", "value", (err) ->
 
     test.equals false, err?
     test.equals config.key, "value"

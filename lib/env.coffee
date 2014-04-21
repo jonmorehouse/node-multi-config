@@ -1,6 +1,6 @@
-camelcase = (key)->
+camelcase = (key) ->
 
-  normalize = (input)->
+  normalize = (input) ->
     
     input[0].toUpperCase() + input.slice(1,input.length).toLowerCase()
 
@@ -10,9 +10,9 @@ camelcase = (key)->
   else
     return pieces[0].toLowerCase()
 
-module.exports = (keys, cb)->
+module.exports = (keys, cb) ->
 
-  envSetter = (key)->
+  envSetter = (key) ->
     objKey = camelcase key
     if process.env[key]?
       config[objKey] = process.env[key]
