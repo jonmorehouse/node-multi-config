@@ -1,7 +1,6 @@
 extend = require 'extend'
 
 module.exports = (obj, opts) ->
-
   if not opts? 
     deep = false
   else if typeof opts == 'boolean'

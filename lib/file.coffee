@@ -18,7 +18,6 @@ jsonLoader = (filepath, cb) ->
   cb null, obj
 
 module.exports = (filepath, opts, cb) ->
-
   if not cb?
     cb = opts
     opts = {}
