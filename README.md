@@ -1,31 +1,32 @@
-Node.js Config
-==============
+# Node.js Config
 
-Functionality
--------------
+## Functionality
 
-Supported FileTypes
--------------------
+# Supported FileTypes
 
 * cson
 * env
 * json
 * yaml
 
-Functions
---------
+# Functions
 
 * loadFromPath(filepath, opts, cb)
 * loadFromEnv([])
 
-Example
--------
+Usage
 
-```
+~~~ coffee-script
 config = require 'node-config'
 
 config.loadFromEnv ["HOME", "ENV"], (err)->
-  
 
-```
+  
+config.set "key", "value"
+
+console.log config.home
+console.log config.HOME
+console.log config.key
+~~~
+
 
