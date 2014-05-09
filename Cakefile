@@ -16,11 +16,5 @@ task "build", "Build jslib", ->
   coffee.stdout.on 'data', (data)->
     print data.toString()
 
-task "debug", "Run temporary debugger", ->
 
-  config = require './lib/index'
-  config.loadFilepath "test/fixtures/test.cson", (err, obj)->
-
-    p err
-    p obj
 
