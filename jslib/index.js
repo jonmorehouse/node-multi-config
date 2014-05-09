@@ -10,6 +10,8 @@
 
   config.set = require("./set");
 
+  config.etcd = require("./etcd");
+
   module.exports = global.config;
 
 }).call(this);

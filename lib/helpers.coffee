@@ -19,3 +19,5 @@ exports.normalizeValue = (value) ->
     return (exports.normalizeValue value for value in array)
 
   return value 
+
+

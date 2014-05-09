@@ -6,7 +6,7 @@ getEnv = (key) =>
 
 setCamelCase = (key) ->
   objKey = helpers.camelCase key
-  if getEnv key?
+  if process.env[key]?
     config[objKey] = getEnv key
     config[key] = getEnv key
   else

@@ -12,7 +12,7 @@
   setCamelCase = function(key) {
     var err, objKey;
     objKey = helpers.camelCase(key);
-    if (getEnv(key != null)) {
+    if (process.env[key] != null) {
       config[objKey] = getEnv(key);
       return config[key] = getEnv(key);
     } else {
