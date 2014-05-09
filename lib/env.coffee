@@ -1,10 +1,14 @@
 helpers = require "./helpers"
 
+getEnv = (key) =>
+
+  return helpers.normalizeValue process.env[key]
+
 setCamelCase = (key) ->
   objKey = helpers.camelCase key
-  if process.env[key]?
-    config[objKey] = process.env[key]
-    config[key] = process.env[key]
+  if getEnv key?
+    config[objKey] = getEnv key
+    config[key] = getEnv key
   else
     err = new Error "Invalid key"
     return cb? err if cb?
@@ -12,7 +16,7 @@ setCamelCase = (key) ->
 
 setEnv = (key) =>
 
-  config[key] = process.env[key]
+  config[key] = getEnv key
 
 setObject = (key) =>
 
@@ -26,7 +30,7 @@ setObject = (key) =>
     if keys.length == 0
       return
     else if keys.length == 1
-      pObj[keys[0]] = process.env[key]
+      pObj[keys[0]] = getEnv key
     # nested object
     else 
       if not pObj[keys[0]]? or not typeof pObj[keys[0]] == "object"
@@ -49,8 +53,4 @@ module.exports = (keys, cb) ->
   )(key) for key in keys
 
   return cb?()
-
-
-
-
 
