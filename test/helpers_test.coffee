@@ -3,8 +3,11 @@ h = projectRequire "helpers"
 
 exports.testCamelCase = (test) ->
   
-  key = "THIS_HAS_FOUR_PARTS"
-  p h.camelCase key
+  key = "THREE_PIECE_KEY"
+  test.equals h.camelCase(key), "threePieceKey"
+  
+  key = "ONEPIECEKEY"
+  test.equals h.camelCase(key), "onepiecekey"
 
   do test.done
 
