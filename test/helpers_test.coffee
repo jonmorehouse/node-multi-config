@@ -22,5 +22,3 @@ exports.normalizeValue = (test) ->
 
   do test.done
 
-  
-

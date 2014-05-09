@@ -9,14 +9,12 @@
   "author": "Jon Morehouse",
   "license": "MIT",
   "devDependencies": {
-    "nodeunit": "^0.8.6"
-  },
-  "devDependencies": {
     "coffee-script": "^1.7.1"
   },
   "dependencies": {
     "coffeeson": "git://github.com/jonmorehouse/coffeeson",
     "extend": "git://github.com/jonmorehouse/node-extend",
-    "js-yaml": "^3.0.2"
+    "js-yaml": "^3.0.2",
+    "node-etcd": "^2.1.1"
   }
 }
