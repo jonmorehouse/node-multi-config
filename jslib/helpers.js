@@ -22,15 +22,23 @@
     }
   };
 
-  exports.normalizeValue = function(key) {
+  exports.normalizeValue = function(value) {
     var array, number;
     number = value.match(/^([0-9\.]+)$/);
     if (number != null) {
-      return parseInt(key);
+      return parseInt(value);
     }
     array = value.split(",");
     if ((array != null) && array.length > 1) {
-      return array;
+      return (function() {
+        var _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = array.length; _i < _len; _i++) {
+          value = array[_i];
+          _results.push(exports.normalizeValue(value));
+        }
+        return _results;
+      })();
     }
     return value;
   };

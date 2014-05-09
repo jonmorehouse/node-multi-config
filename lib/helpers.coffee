@@ -8,14 +8,14 @@ exports.camelCase = (key) ->
   else
     return pieces[0].toLowerCase()
 
-exports.normalizeValue = (key) ->
+exports.normalizeValue = (value) ->
 
   number = value.match /^([0-9\.]+)$/
   if number?
-    return parseInt key
+    return parseInt value
 
   array = value.split ","
   if array? and array.length > 1
-    return array
+    return (exports.normalizeValue value for value in array)
 
   return value 
