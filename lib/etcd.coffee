@@ -1,0 +1,3 @@
+etcd = require 'node-etcd'
+
+
