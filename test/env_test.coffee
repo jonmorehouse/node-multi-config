@@ -7,7 +7,7 @@ exports.testEnv = (test) ->
 
 exports.testEnvArray = (test) ->
   keys = ["HOME"]
-  config.loadFromEnv keys
+  config.loadEnv keys
 
   for key in keys
     test.notEqual process.env[key]?, null
@@ -16,7 +16,7 @@ exports.testEnvArray = (test) ->
   do test.done
 
 exports.testEnvArrayCb = (test) ->
-  config.loadFromEnv ["HOME"], (err) ->
+  config.loadEnv ["HOME"], (err) ->
 
     test.equal config.home?, true 
     test.equal config.HOME?, true

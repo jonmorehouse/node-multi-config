@@ -6,7 +6,9 @@
 
   config.loadFilepath = require("./file");
 
-  config.loadFromEnv = require("./env");
+  config.loadEnv = require("./env").loadEnv;
+
+  config.getEnv = require("./env").getEnv;
 
   config.set = require("./set");
 

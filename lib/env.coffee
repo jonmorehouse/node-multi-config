@@ -1,10 +1,14 @@
 helpers = require "./helpers"
 
-getEnv = (key) =>
+getEnv = (key, defaultValue) =>
+
+  if key not of process.env
+    return defaultValue
 
   return helpers.normalizeValue process.env[key]
 
 setCamelCase = (key) ->
+
   objKey = helpers.camelCase key
   if process.env[key]?
     config[objKey] = getEnv key
@@ -14,7 +18,7 @@ setCamelCase = (key) ->
     return cb? err if cb?
     throw err
 
-setEnv = (key) =>
+setEnv = (key, defaultValue) =>
 
   config[key] = getEnv key
 
@@ -39,7 +43,7 @@ setObject = (key) =>
       return _recurser keys[1...], pObj[keys[0]]
   )(pieces, config)
 
-module.exports = (keys, cb) ->
+loadEnv = (keys, cb) ->
  
   # normalize to an array
   if not typeof keys == 'array'
@@ -53,4 +57,10 @@ module.exports = (keys, cb) ->
   )(key) for key in keys
 
   return cb?()
+
+module.exports =
+  loadEnv: loadEnv
+  getEnv: getEnv
+
+
 

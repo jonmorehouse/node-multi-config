@@ -22,3 +22,23 @@ exports.normalizeValue = (test) ->
 
   do test.done
 
+
+exports.normalizeArgs = (test) ->
+
+  defs = {type: "defaults"}
+  [opts, cb] = h.argParser test.done, defs
+  test.equal "object", typeof opts
+  test.equal "function", typeof cb
+  test.deepEqual defs, opts
+
+  [opts, cb] = h.argParser {}, test.done, defs
+  test.equal "object", typeof opts
+  test.equal "function", typeof cb
+  test.deepEqual opts, {}
+
+  do test.done
+
+
+
+
+

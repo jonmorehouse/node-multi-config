@@ -20,4 +20,21 @@ exports.normalizeValue = (value) ->
 
   return value 
 
+exports.argParser = (args...) ->
+  
+  switch args.length
+
+    when 0 then return [null, null]
+    when 1
+      # only an object passed - no callback
+      if typeof args[0] == "object" 
+        return [args[0], null]
+      # only callback passed in - and no default given
+      return [null, args[0]]
+    when 2 # default parameter used because user didn't pass in an object
+      if typeof args[0] == "object"  
+        return [args[0], args[1]]
+      # return last argument (default options) as callback
+      return [args[1], args[0]]
+    else return [args[0], args[1]]    
 

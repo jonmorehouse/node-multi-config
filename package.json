@@ -12,6 +12,7 @@
     "coffee-script": "^1.7.1"
   },
   "dependencies": {
+    "async": "^0.8.0",
     "coffeeson": "git://github.com/jonmorehouse/coffeeson",
     "extend": "git://github.com/jonmorehouse/node-extend",
     "js-yaml": "^3.0.2",
