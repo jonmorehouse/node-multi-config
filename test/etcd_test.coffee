@@ -1,25 +1,24 @@
 bootstrap = require "./bootstrap"
 etcd = projectRequire "etcd"
-Etcd = require 'node-etcd'
+async = require 'async'
 
-test = 
+module.exports = 
 
   setUp: (cb) ->
 
-    @etcd = new Etcd process.env["ETCD_HOST"], parseInt process.env["ETCD_PORT"]
+    @client = etcd.getClient()
     @obj = 
-      key: "value"
+      key_test: "value2"
       obj: {age: 26, name: {first: "first_name", last: "last_name"}}
-      number: 4331
+      number: "4331"
       array: ["test", "test"]
-    @etcd.set key, value for key, value of @obj
-    etcd.loadKeys (key for key of @obj), =>
+
+    @client.set key, value for key, value of @obj
+    etcd.loadKeys (key for key of @obj), {watch: true}, =>
       cb?()
 
   tearDown: (cb) ->
-  
-    return cb?()
-    etcd.close =>
+    etcd.close ->
       cb?()
 
   testLoadKeys: (test) ->
@@ -31,16 +30,21 @@ test =
     do test.done
 
   testWatch: (test) ->
-
-    key = "key"
-    #oldValue = config[key]
-    #@etcd.set key, "some new value"
   
-    do test.done
+    # get old value
+    key = "key_test"
+    val = config[key]
 
-  testNoWatch: (test) ->
+    _ = (val, cb) =>
+      @client.set key, val
+      __ = =>
+        test.deepEqual val, config[key]
+        cb?()
+      setTimeout __, 50
 
-    # this should fill the values accordingly ...
-    do test.done
+    async.eachSeries ["val1", "val2", "val3"], _, (err) =>    
 
+      do test.done
   
+
+
