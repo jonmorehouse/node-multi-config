@@ -21,7 +21,7 @@ normalizeValue = (value) ->
   return value 
 
 # returns [args, opts, cb] 
-splatStringParser = (args...) ->
+splatParser = (args...) ->
 
   args = args.reverse()
   elements = []
@@ -104,6 +104,6 @@ module.exports =
   normalizeValue: normalizeValue
   normalizeCase: normalizeCase
   argParser: argParser
-  splatStringParser: splatStringParser
+  splatParser: splatParser
 
 
