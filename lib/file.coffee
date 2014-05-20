@@ -17,7 +17,7 @@ jsonLoader = (filepath, cb) ->
     return cb err
   cb null, obj
 
-module.exports = (filepath, opts, cb) ->
+load = (filepath, opts, cb) ->
   if not cb?
     cb = opts
     opts = {}
@@ -33,5 +33,8 @@ module.exports = (filepath, opts, cb) ->
     return cb err if err
     merge obj, opts
     cb null, obj
+
+module.exports = 
+  load: load
 
 

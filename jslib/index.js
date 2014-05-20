@@ -4,15 +4,13 @@
 
   global.config = {};
 
-  config.loadFilepath = require("./file");
+  config.file = require("./file").load;
 
-  config.loadEnv = require("./env").loadEnv;
+  config.env = require("./env").load;
 
-  config.getEnv = require("./env").getEnv;
+  config.etcd = require("./etcd").load;
 
   config.set = require("./set");
-
-  config.etcd = require("./etcd");
 
   module.exports = global.config;
 

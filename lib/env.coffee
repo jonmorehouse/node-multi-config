@@ -1,6 +1,6 @@
 h = require "./helpers"
 
-getEnv = (key, defaultValue) =>
+get = (key, defaultValue) =>
 
   if key not of process.env
     return defaultValue
@@ -9,14 +9,14 @@ getEnv = (key, defaultValue) =>
 
 setObject = (key) ->
 
-  h.setObject key, getEnv(key), config, "_"
+  h.setObject key, get(key), config, "_"
 
 setCamelCase = (key) ->
 
   objKey = h.camelCase key
   if process.env[key]?
-    config[objKey] = getEnv key
-    config[key] = getEnv key
+    config[objKey] = get key
+    config[key] = get key
   else
     err = new Error "Invalid key"
     return cb? err if cb?
@@ -24,10 +24,10 @@ setCamelCase = (key) ->
 
 setEnv = (key, defaultValue) =>
 
-  config[key] = getEnv key
+  config[key] = get key
 
 
-loadEnv = (keys, cb) ->
+load = (keys, cb) ->
  
   # normalize to an array
   if not typeof keys == 'array'
@@ -43,8 +43,8 @@ loadEnv = (keys, cb) ->
   return cb?()
 
 module.exports =
-  loadEnv: loadEnv
-  getEnv: getEnv
+  load: load
+  get: get
 
 
 

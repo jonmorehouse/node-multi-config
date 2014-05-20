@@ -14,7 +14,7 @@ module.exports =
       array: ["test", "test"]
 
     @client.set key, value for key, value of @obj
-    etcd.loadKeys (key for key of @obj), {watch: true}, =>
+    etcd.load (key for key of @obj), {watch: true}, =>
       cb?()
 
   tearDown: (cb) ->
@@ -61,7 +61,7 @@ module.exports =
 
     testDirectoryKeys: (test) -> 
 
-      etcd.loadKeys @dirName, =>
+      etcd.load @dirName, =>
 
         test.deepEqual config[@dirName], {key: "value"}
         do test.done
@@ -69,7 +69,7 @@ module.exports =
     testNestedDirectory: (test) -> 
 
       @client.set "#{@dirName}/subdir/key", "value", (err, res) =>
-        etcd.loadKeys @dirName, =>
+        etcd.load @dirName, =>
 
           test.deepEqual config[@dirName], {key: "value", subdir: {key: "value"}}
           do test.done

@@ -14,9 +14,9 @@ getClient = ->
     return etcd if etcd?
 
     # set up required etcd configuration
-    config.etcdHost ?= env.getEnv "ETCD_HOST", "localhost"
-    config.etcdPort ?= env.getEnv "ETCD_PORT", 4001
-    config.etcdNamespace ?= env.getEnv "ETCD_NAMESPACE", ""
+    config.etcdHost ?= env.get "ETCD_HOST", "localhost"
+    config.etcdPort ?= env.get "ETCD_PORT", 4001
+    config.etcdNamespace ?= env.get "ETCD_NAMESPACE", ""
     etcd = new Etcd config.etcdHost, config.etcdPort
 
 setFromResponse = (res, cb) ->
@@ -68,7 +68,7 @@ stopWatcher = (key,cb) ->
 
   watchers[key].stop()
 
-loadKeys = (keys, args...) ->
+load = (keys, args...) ->
 
   [opts, cb] = h.argParser args..., {watch: true}
   keys = if keys instanceof Array then keys else [keys]
@@ -90,7 +90,7 @@ close = (cb) ->
     cb?()
 
 module.exports =
-  loadKeys: loadKeys
+  load: load
   close: close
   getClient: getClient
   watchers: watchers

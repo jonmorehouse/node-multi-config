@@ -1,13 +1,14 @@
 require './bootstrap'
 
-config = projectRequire "index.coffee"
+env = projectRequire "env"
+config = projectRequire "index"
 
 exports.testEnv = (test) ->
   do test.done
 
 exports.testEnvArray = (test) ->
   keys = ["HOME"]
-  config.loadEnv keys
+  env.load keys
 
   for key in keys
     test.notEqual process.env[key]?, null
@@ -16,7 +17,7 @@ exports.testEnvArray = (test) ->
   do test.done
 
 exports.testEnvArrayCb = (test) ->
-  config.loadEnv ["HOME"], (err) ->
+  env.load ["HOME"], (err) ->
 
     test.equal config.home?, true 
     test.equal config.HOME?, true
