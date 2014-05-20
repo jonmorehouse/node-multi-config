@@ -10,4 +10,3 @@ config.etcd = require "./etcd"
 # export the global configuration object as the parent for all interactions
 module.exports = global.config
 
-

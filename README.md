@@ -1,32 +1,55 @@
 # Node.js Config
+> A configuration library that allows dynamic configuration via ENV, etcd, config-files or functionally
 
-## Functionality
+## Description
 
-# Supported FileTypes
+This package allows you to easily pass your configuration around via package. This allows you to bootstrap once and use anywhere.
 
-* cson
-* env
-* json
-* yaml
+## Etcd Usage 
+~~~ sh
+$ export ETCD_HOST="localhost"
+$ export ETCD_PORT=4001
 
-# Functions
 
-* loadFromPath(filepath, opts, cb)
-* loadFromEnv([])
+$ etcdctl mkdir "node"
+$ etcdctl set "node/key", "value"
+$ etcdctl set "node/subdir/key", "value"
 
-Usage
+~~~
 
 ~~~ coffee-script
 config = require 'node-config'
 
-config.loadFromEnv ["HOME", "ENV"], (err)->
+# load configuration from etcd
+config.loadKeys ["node"]
 
-  
-config.set "key", "value"
+config["node"] 
+# {key: "value", subdir: {key: "value"}}
 
-console.log config.home
-console.log config.HOME
-console.log config.key
 ~~~
+
+## Env Usage
+
+~~~ sh
+
+export TEST_KEY=value
+
+config.env ["TEST_KEY"] 
+
+config["test"]
+# {key: "value"}
+
+~~~
+
+~~~ Coffee-script
+config = require 'node-config'
+
+# load configuration from etcd
+config.loadKeys ["node"]
+
+
+~~~
+
+
 
 
