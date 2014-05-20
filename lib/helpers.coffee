@@ -49,10 +49,10 @@ setObject = (key, value, obj, delimiter) =>
   # add to the global object by default
   obj ?= config
   # by default split by commands and underscores
-  delimiter ?= /[,_]+/
+  delimiter ?= /[,_\/]+/
 
   # get an array of the proper pieces
-  pieces = (normalizeCase(piece) for piece in key.split(delimiter))
+  pieces = (normalizeCase(piece) for piece in key.split(delimiter) when piece.length > 0)
 
   # recurse through the various keys
   (_recurser = (keys, pObj, value) =>

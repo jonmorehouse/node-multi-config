@@ -81,7 +81,7 @@
       obj = config;
     }
     if (delimiter == null) {
-      delimiter = /[,_]+/;
+      delimiter = /[,_\/]+/;
     }
     pieces = (function() {
       var _i, _len, _ref, _results;
@@ -89,7 +89,9 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         piece = _ref[_i];
-        _results.push(normalizeCase(piece));
+        if (piece.length > 0) {
+          _results.push(normalizeCase(piece));
+        }
       }
       return _results;
     })();

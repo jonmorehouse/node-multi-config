@@ -50,14 +50,12 @@ module.exports =
 
     setUp: (cb) ->
 
-      @dirName = "/testDir"
+      @dirName = "testDir"
       @client.mkdir @dirName, (err, res) =>
-        @client.set "#{@dirName}/key", "value"
-        cb?()
+        @client.set "#{@dirName}/key", "value", (err, res) ->
+          cb?()
 
     tearDown: (cb) ->
-
-      return cb?()
       @client.rmdir @dirName, {recursive: true}, (err, res) ->
         cb?()
 
@@ -65,7 +63,14 @@ module.exports =
 
       etcd.loadKeys @dirName, =>
 
+        test.deepEqual config[@dirName], {key: "value"}
         do test.done
-    
 
+    testNestedDirectory: (test) -> 
+
+      @client.set "#{@dirName}/subdir/key", "value", (err, res) =>
+        etcd.loadKeys @dirName, =>
+
+          test.deepEqual config[@dirName], {key: "value", subdir: {key: "value"}}
+          do test.done
 

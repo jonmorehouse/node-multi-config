@@ -19,24 +19,30 @@ getClient = ->
     config.etcdNamespace ?= env.getEnv "ETCD_NAMESPACE", ""
     etcd = new Etcd config.etcdHost, config.etcdPort
 
-setFromResponse = (res) ->
+setFromResponse = (res, cb) ->
 
   key = res.node.key.replace "/", ""
-  if not res.node.dir? or not res.node.dir
+  if not res.node.dir? or not res.node.dir or not res.node.nodes?
     config[key] = res.node.value
-    return
+    return cb?()
 
-  # working with a directory and need to create it recursively
-  p res.node.nodes
-   
+  keys = []
+  for node in res.node.nodes
+    if not node.dir? or not res.node.dir
+      # add nodes for each 
+      h.setObject node.key, node.value
+      continue
+    keys.push node.key
+       
+  async.each keys, setFromKey, (err) ->
+    cb?()
 
 setFromKey = (key, args...) ->
 
   [opts, cb] = h.argParser args..., {recursive: true}
   etcd.get key, (err, res) ->
     return cb? err if err 
-    setFromResponse res
-    cb?()
+    setFromResponse res, cb
 
 setWatcher = (key, cb) ->
   

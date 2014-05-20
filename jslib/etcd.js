@@ -33,14 +33,26 @@
     return etcd = new Etcd(config.etcdHost, config.etcdPort);
   };
 
-  setFromResponse = function(res) {
-    var key;
+  setFromResponse = function(res, cb) {
+    var key, keys, node, _i, _len, _ref;
     key = res.node.key.replace("/", "");
-    if ((res.node.dir == null) || !res.node.dir) {
+    if ((res.node.dir == null) || !res.node.dir || (res.node.nodes == null)) {
       config[key] = res.node.value;
-      return;
+      return typeof cb === "function" ? cb() : void 0;
     }
-    return p(res.node.nodes);
+    keys = [];
+    _ref = res.node.nodes;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      node = _ref[_i];
+      if ((node.dir == null) || !res.node.dir) {
+        h.setObject(node.key, node.value);
+        continue;
+      }
+      keys.push(node.key);
+    }
+    return async.each(keys, setFromKey, function(err) {
+      return typeof cb === "function" ? cb() : void 0;
+    });
   };
 
   setFromKey = function() {
@@ -53,8 +65,7 @@
       if (err) {
         return typeof cb === "function" ? cb(err) : void 0;
       }
-      setFromResponse(res);
-      return typeof cb === "function" ? cb() : void 0;
+      return setFromResponse(res, cb);
     });
   };
 
