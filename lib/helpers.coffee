@@ -23,13 +23,28 @@ normalizeValue = (value) ->
 # returns [args, opts, cb] 
 splatStringParser = (args...) ->
 
-  switch args.length
-    when 0 then return [null, null]
-    when 1, typeof args[0] is String then [[args[0]], null, null]
-    when 1, typeof args[0] is Function then [null, null, args[0]]
-    when 1, typeof args[0] is 
-      
-  
+  args = args.reverse()
+  elements = []
+  opts = null
+  cb = null
+
+  for arg, index in args
+    
+    # handle the case of a callback function
+    if arg instanceof Function and index is 0 
+      cb = arg 
+    # handle opts ...
+    # there is an edge case where all 
+    else if arg instanceof Object and index in [0, 1]
+      opts = arg
+    # add all strings in the array to the strings array
+    else if arg instanceof Array
+      Array::push.apply elements, arg.reverse()
+    # add a single string, object or other argument
+    else 
+      elements.push arg
+
+  return [elements.reverse(), opts, cb]
 
 # returns [opts, cb]
 argParser = (args...) ->

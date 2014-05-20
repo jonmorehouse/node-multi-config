@@ -76,11 +76,11 @@ exports.setObject = (test) ->
 
 exports.splatStringParser = (test) ->
   
-  p h.splatStringParser "TEST"
-
+  # only string arguments
+  test.deepEqual h.splatStringParser("arg1", "arg2"), [["arg1", "arg2"], null, null] 
+  # string and array arguments, options and a callback function
+  test.deepEqual h.splatStringParser(["arg1", "arg2"], "arg3", {}, test.done), [["arg1", "arg2", "arg3"], {}, test.done]
 
   do test.done
-
-
 
 
