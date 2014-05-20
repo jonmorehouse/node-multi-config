@@ -38,3 +38,39 @@ exports.normalizeArgs = (test) ->
 
   do test.done
 
+
+exports.setObject = (test) ->
+
+  testCases = [
+    {
+      key: "testDir/key"
+      value: "value"
+      delimiter: "/"
+      result: {testDir: {key: "value"}}
+    },
+    {
+      key: "testDir/testDir/key"
+      value: "value"
+      delimiter: "/"
+      result: {testDir: {testDir: {key: "value"}}}
+    },
+    {
+      key: "key"
+      value: "value"
+      delimiter: "_"
+      result: {key: "value"}
+    },
+    {
+      key: "testDir_testDir_key"
+      value: "value"
+      delimiter: undefined
+      result: {testDir: {testDir: {key: "value"}}}
+    }
+  ]
+
+  for tc in testCases
+    obj = h.setObject tc.key, tc.value, {}, tc.delimiter
+    p obj 
+  test.done()
+
+

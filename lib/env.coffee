@@ -1,15 +1,19 @@
-helpers = require "./helpers"
+h = require "./helpers"
 
 getEnv = (key, defaultValue) =>
 
   if key not of process.env
     return defaultValue
 
-  return helpers.normalizeValue process.env[key]
+  return h.normalizeValue process.env[key]
+
+setObject = (key) ->
+
+  h.setObject key, getEnv(key), config, "_"
 
 setCamelCase = (key) ->
 
-  objKey = helpers.camelCase key
+  objKey = h.camelCase key
   if process.env[key]?
     config[objKey] = getEnv key
     config[key] = getEnv key
@@ -22,26 +26,6 @@ setEnv = (key, defaultValue) =>
 
   config[key] = getEnv key
 
-setObject = (key) =>
-
-  # split the key by its name ...
-  # create the object structure as needed
-  pieces = (piece.toLowerCase() for piece in key.split("_"))
-
-  # recurse through the various keys
-  (_recurser = (keys, pObj) =>
-    
-    if keys.length == 0
-      return
-    else if keys.length == 1
-      pObj[keys[0]] = getEnv key
-    # nested object
-    else 
-      if not pObj[keys[0]]? or not typeof pObj[keys[0]] == "object"
-        pObj[keys[0]] = {}
-      # call the next level of recursion
-      return _recurser keys[1...], pObj[keys[0]]
-  )(pieces, config)
 
 loadEnv = (keys, cb) ->
  
@@ -52,7 +36,7 @@ loadEnv = (keys, cb) ->
   # set each key properly
   ((key) => 
     setCamelCase key
-    setObject key 
+    setObject key
     setEnv key
   )(key) for key in keys
 

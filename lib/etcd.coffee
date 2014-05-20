@@ -22,7 +22,13 @@ getClient = ->
 setFromResponse = (res) ->
 
   key = res.node.key.replace "/", ""
-  config[key] = res.node.value
+  if not res.node.dir? or not res.node.dir
+    config[key] = res.node.value
+    return
+
+  # working with a directory and need to create it recursively
+  p res.node.nodes
+   
 
 setFromKey = (key, args...) ->
 

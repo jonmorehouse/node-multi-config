@@ -36,7 +36,11 @@
   setFromResponse = function(res) {
     var key;
     key = res.node.key.replace("/", "");
-    return config[key] = res.node.value;
+    if ((res.node.dir == null) || !res.node.dir) {
+      config[key] = res.node.value;
+      return;
+    }
+    return p(res.node.nodes);
   };
 
   setFromKey = function() {

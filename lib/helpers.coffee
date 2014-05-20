@@ -1,4 +1,4 @@
-exports.camelCase = (key) ->
+camelCase = (key) ->
   normalize = (input) ->
     input[0].toUpperCase() + input.slice(1,input.length).toLowerCase()
   
@@ -8,7 +8,7 @@ exports.camelCase = (key) ->
   else
     return pieces[0].toLowerCase()
 
-exports.normalizeValue = (value) ->
+normalizeValue = (value) ->
 
   number = value.match /^([0-9\.]+)$/
   if number?
@@ -16,11 +16,11 @@ exports.normalizeValue = (value) ->
 
   array = value.split ","
   if array? and array.length > 1
-    return (exports.normalizeValue value for value in array)
+    return (normalizeValue value for value in array)
 
   return value 
 
-exports.argParser = (args...) ->
+argParser = (args...) ->
   
   switch args.length
 
@@ -37,5 +37,45 @@ exports.argParser = (args...) ->
       # return last argument (default options) as callback
       return [args[1], args[0]]
     else return [args[0], args[1]]    
+
+normalizeCase = (key) ->
+
+  if key.toUpperCase() == key
+    return camelCase key
+  return key
+
+setObject = (key, value, obj, delimiter) =>
+
+  # add to the global object by default
+  obj ?= config
+  # by default split by commands and underscores
+  delimiter ?= /[,_]+/
+
+  # get an array of the proper pieces
+  pieces = (normalizeCase(piece) for piece in key.split(delimiter))
+
+  # recurse through the various keys
+  (_recurser = (keys, pObj, value) =>
+    
+    if keys.length == 0
+      return
+    else if keys.length == 1
+      pObj[keys[0]] = value
+    # nested object
+    else 
+      if not pObj[keys[0]]? or not typeof pObj[keys[0]] == "object"
+        pObj[keys[0]] = {}
+      # call the next level of recursion
+      return _recurser keys[1...], pObj[keys[0]], value
+  )(pieces, obj, value)
+
+  return obj
+
+module.exports = 
+  setObject: setObject
+  camelCase: camelCase
+  normalizeValue: normalizeValue
+  normalizeCase: normalizeCase
+  argParser: argParser
 
 

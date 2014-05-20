@@ -45,6 +45,27 @@ module.exports =
     async.eachSeries ["val1", "val2", "val3"], _, (err) =>    
 
       do test.done
-  
+
+  testDirectorySuite: 
+
+    setUp: (cb) ->
+
+      @dirName = "/testDir"
+      @client.mkdir @dirName, (err, res) =>
+        @client.set "#{@dirName}/key", "value"
+        cb?()
+
+    tearDown: (cb) ->
+
+      return cb?()
+      @client.rmdir @dirName, {recursive: true}, (err, res) ->
+        cb?()
+
+    testDirectoryKeys: (test) -> 
+
+      etcd.loadKeys @dirName, =>
+
+        do test.done
+    
 
 
