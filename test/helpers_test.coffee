@@ -70,7 +70,8 @@ exports.setObject = (test) ->
 
   for tc in testCases
     obj = h.setObject tc.key, tc.value, {}, tc.delimiter
-    p obj 
+    test.deepEqual obj, tc.result
+
   test.done()
 
 
