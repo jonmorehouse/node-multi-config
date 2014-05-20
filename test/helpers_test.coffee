@@ -74,4 +74,13 @@ exports.setObject = (test) ->
 
   test.done()
 
+exports.splatStringParser = (test) ->
+  
+  p h.splatStringParser "TEST"
+
+
+  do test.done
+
+
+
 

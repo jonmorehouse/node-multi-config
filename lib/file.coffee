@@ -1,7 +1,9 @@
 path = require 'path'
 cson = require 'coffeeson'
 yaml = require 'js-yaml'
-merge = require './merge'
+merge = require "./merge"
+h = require "./helpers"
+async = require 'async'
 
 yamlLoader = (filepath, cb) ->
   try
@@ -17,22 +19,30 @@ jsonLoader = (filepath, cb) ->
     return cb err
   cb null, obj
 
-load = (filepath, opts, cb) ->
-  if not cb?
-    cb = opts
-    opts = {}
+load = (args...) ->
 
-  switch path.extname filepath
-    when ".json" then loader = jsonLoader
-    when ".cson" then loader = cson
-    when ".yml", ".yaml" then loader = ymlLoader
-    else
-      return cb new Error "Unrecognized file type"
+  # normalize arguments
+  [opts, cb] = h.argParser args, {}
+  #filepaths = if typeof filepaths[0] is Array then filepaths[0] else filepaths
 
-  loader filepath, (err, obj) ->
-    return cb err if err
-    merge obj, opts
-    cb null, obj
+
+  return cb?()
+  # 
+  _ = (filepath, cb) ->
+
+    switch path.extname filepath
+      when ".json" then loader = jsonLoader
+      when ".cson" then loader = cson
+      when ".yml", ".yaml" then loader = ymlLoader
+      else
+        return cb new Error "Unrecognized file type"
+
+    loader filepath, (err, obj) ->
+      return cb err if err
+      merge obj, opts
+      cb null, obj
+
+  async.each filepaths, 
 
 module.exports = 
   load: load

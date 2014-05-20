@@ -20,6 +20,18 @@ normalizeValue = (value) ->
 
   return value 
 
+# returns [args, opts, cb] 
+splatStringParser = (args...) ->
+
+  switch args.length
+    when 0 then return [null, null]
+    when 1, typeof args[0] is String then [[args[0]], null, null]
+    when 1, typeof args[0] is Function then [null, null, args[0]]
+    when 1, typeof args[0] is 
+      
+  
+
+# returns [opts, cb]
 argParser = (args...) ->
   
   switch args.length
@@ -77,5 +89,6 @@ module.exports =
   normalizeValue: normalizeValue
   normalizeCase: normalizeCase
   argParser: argParser
+  splatStringParser: splatStringParser
 
 
