@@ -90,10 +90,6 @@ key: value
 
 env 
 ~~~ bash
-# config.env
-KEY=value
-NESTED_OBJECT=value
-~~~
 
 ## Manual Usage
 > node config allows you to manually set config attributes
