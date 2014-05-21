@@ -98,11 +98,13 @@
   load = function() {
     var args, cb, keys, opts, _ref,
       _this = this;
-    keys = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-    _ref = h.argParser.apply(h, __slice.call(args).concat([{
-      watch: true
-    }])), opts = _ref[0], cb = _ref[1];
-    keys = keys instanceof Array ? keys : [keys];
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    _ref = h.splatParser.apply(h, args), keys = _ref[0], opts = _ref[1], cb = _ref[2];
+    if (opts == null) {
+      opts = {
+        recursive: true
+      };
+    }
     if (etcd == null) {
       etcd = getClient();
     }

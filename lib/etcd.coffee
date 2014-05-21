@@ -68,10 +68,10 @@ stopWatcher = (key,cb) ->
 
   watchers[key].stop()
 
-load = (keys, args...) ->
+load = (args...) ->
 
-  [opts, cb] = h.argParser args..., {watch: true}
-  keys = if keys instanceof Array then keys else [keys]
+  [keys, opts, cb] = h.splatParser args...
+  opts ?= {recursive: true}
   etcd ?= getClient()
 
   async.eachSeries keys, setFromKey, (err) =>
