@@ -1,11 +1,9 @@
-# MultiConfig - Node.js configuration manager
-> A package for loading and managing project configuration via etcd, env, or configuration file
+# Multi Config
+### Configuration manager for node.js
+> bootstrap global configuration with etcd, env variables, configuration files or even manually
 
-## Description
-
-This package allows you to easily pass your configuration around via package. This allows you to bootstrap once and use anywhere.
-
-## Etcd Usage 
+## Usage
+### Etcd
 
 > node config allows you to set objects and attributes via etcd
 
@@ -31,7 +29,7 @@ config.node
 
 ~~~
 
-## Env Usage
+### Environment Variables
 > node config allows you to set attributes and objects via environment variables
 
 ~~~ sh
@@ -51,7 +49,7 @@ config.TEST_KEY
 
 ~~~
 
-## File Usage
+### Configuration Files
 > node config allows you to set attributes and objects via config files
 
 ~~~ coffee-script
@@ -63,7 +61,7 @@ config.file "config.json"
 ~~~
 
 
-### Supported Filetypes
+#### Supported Filetypes
 
 json - http://json.org/example.html
 
@@ -87,9 +85,6 @@ yaml http://www.yaml.org/
 # config.yml
 key: value
 ~~~
-
-env 
-~~~ bash
 
 ## Manual Usage
 > node config allows you to manually set config attributes
