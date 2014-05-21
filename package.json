@@ -1,12 +1,13 @@
 {
   "name": "multi-config",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Etcd, Env, Json, Yml, Cson, Env config manager",
   "main": "jslib/index.js",
   "scripts": {
     "prepublish": "cake build"
   },
-  "author": "Jon Morehouse",
+  "author": "Jon Morehouse <morehousej09@gmail.com> (http://github.com/jonmorehouse)",
+  "homepage": "https://github.com/jonmorehouse/node-multi-config",
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "^1.7.1"

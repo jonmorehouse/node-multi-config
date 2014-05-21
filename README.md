@@ -19,7 +19,7 @@ $ etcdctl set "node/subdir/key", "value"
 ~~~
 
 ~~~ coffee-script
-config = require 'node-config'
+config = require 'multi-config'
 
 # load configuration from etcd
 config.loadKeys ["node"]
@@ -37,7 +37,7 @@ $ export TEST_KEY=value
 ~~~
 
 ~~~ Coffee-script
-config = require 'node-config'
+config = require 'multi-config'
 
 config.env ["TEST_KEY"] 
 
@@ -53,7 +53,7 @@ config.TEST_KEY
 > node config allows you to set attributes and objects via config files
 
 ~~~ coffee-script
-config = require 'node-config'
+config = require 'multi-config'
 
 # pass in one or multiple file paths
 config.file "config.json" 
@@ -90,7 +90,7 @@ key: value
 > node config allows you to manually set config attributes
 
 ~~~ coffee-script
-config = require 'node-config'
+config = require 'multi-config'
 
 config.set "key", "value"
 
