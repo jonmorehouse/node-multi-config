@@ -33,13 +33,12 @@ splatParser = (args...) ->
     # handle the case of a callback function
     if arg instanceof Function and index is 0 
       cb = arg 
-    # handle opts ...
-    # there is an edge case where all 
-    else if arg instanceof Object and index in [0, 1]
-      opts = arg
     # add all strings in the array to the strings array
     else if arg instanceof Array
       Array::push.apply elements, arg.reverse()
+    # options
+    else if arg instanceof Object and index in [0, 1]
+      opts = arg
     # add a single string, object or other argument
     else 
       elements.push arg

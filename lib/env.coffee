@@ -27,12 +27,10 @@ setEnv = (key, defaultValue) =>
   config[key] = get key
 
 
-load = (keys, cb) ->
- 
-  # normalize to an array
-  if not typeof keys == 'array'
-    keys = [keys]
-    
+load = (args...) ->
+  
+  [keys, opts, cb] = h.splatParser args...
+
   # set each key properly
   ((key) => 
     setCamelCase key

@@ -58,10 +58,10 @@
       arg = args[index];
       if (arg instanceof Function && index === 0) {
         cb = arg;
-      } else if (arg instanceof Object && (index === 0 || index === 1)) {
-        opts = arg;
       } else if (arg instanceof Array) {
         Array.prototype.push.apply(elements, arg.reverse());
+      } else if (arg instanceof Object && (index === 0 || index === 1)) {
+        opts = arg;
       } else {
         elements.push(arg);
       }

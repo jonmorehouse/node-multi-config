@@ -24,10 +24,16 @@ exports.testEnvArrayCb = (test) ->
 
     do test.done
 
+exports.testEnvSplat = (test) ->
 
+  keys = ["HOME", "PATH"]
+  delete config[key] for key in keys
+  env.load "HOME", "PATH", (err) ->
 
+    for key in keys
+      test.equal config[key]?, true
 
-
+    do test.done
 
 
 

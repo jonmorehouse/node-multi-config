@@ -46,17 +46,3 @@ exports.multipleLoader = (test) ->
     do test.done
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
