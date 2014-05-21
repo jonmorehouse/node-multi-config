@@ -1,5 +1,5 @@
-# Node.js Config
-> A configuration library that allows dynamic configuration via ENV, etcd, config-files or functionally
+# MultiConfig - Node.js configuration manager
+> A package for loading and managing project configuration via etcd, env, or configuration file
 
 ## Description
 
