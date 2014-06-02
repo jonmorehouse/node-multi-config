@@ -28,7 +28,7 @@
 
   normalizeValue = function(value) {
     var array, number;
-    number = value.match(/^([0-9\.]+)$/);
+    number = value.match(/^([0-9]+)$/);
     if (number != null) {
       return parseInt(value);
     }
