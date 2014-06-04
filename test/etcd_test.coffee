@@ -74,3 +74,14 @@ module.exports =
           test.deepEqual config[@dirName], {key: "value", subdir: {key: "value"}}
           do test.done
 
+    testNamespace: (test) ->
+      
+      @client.set "#{@dirName}/subDir/key", "value", (err, res) =>
+        etcd.load @dirName, {namespace: false}, (err) =>
+
+          test.equal config[@dirName]?, false
+          test.equal config.subDir?, true
+          do test.done
+
+
+        

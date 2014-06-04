@@ -3,6 +3,7 @@ require "./index"
 env = require "./env"
 async = require 'async'
 h = require "./helpers"
+merge = require "./merge"
 
 # module wide vars
 etcd = null
@@ -71,7 +72,8 @@ stopWatcher = (key,cb) ->
 load = (args...) ->
 
   [keys, opts, cb] = h.splatParser args...
-  opts ?= {recursive: true}
+  opts ?= {}
+  opts.recursive ?= true
   etcd ?= getClient()
 
   async.eachSeries keys, setFromKey, (err) =>
@@ -79,6 +81,14 @@ load = (args...) ->
     
     if opts.watch? and opts.watch
       setWatcher key for key in keys
+
+    # normalize the namespace for etcd directories ... this should be easier ...
+    if opts.namespace? and not opts.namespace
+      for key in keys
+        _val = config[key]
+        merge _val
+        if not _val[key]?
+          delete config[key]
 
     cb?()
     
