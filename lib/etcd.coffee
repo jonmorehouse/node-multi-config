@@ -31,7 +31,7 @@ setFromResponse = (res, cb) ->
   for node in res.node.nodes
     if not node.dir? or not res.node.dir
       # add nodes for each 
-      h.setObject node.key, node.value
+      h.setObject node.key, node.value, config, /[\/]+/
       continue
     keys.push node.key
        

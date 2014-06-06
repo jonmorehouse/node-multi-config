@@ -47,7 +47,7 @@
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       node = _ref[_i];
       if ((node.dir == null) || !res.node.dir) {
-        h.setObject(node.key, node.value);
+        h.setObject(node.key, node.value, config, /[\/]+/);
         continue;
       }
       keys.push(node.key);

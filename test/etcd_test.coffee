@@ -83,5 +83,15 @@ module.exports =
           test.equal config.subDir?, true
           do test.done
 
+    testCorrectObjectCreation: (test) ->
 
-        
+      @dirName = "test_dir"
+      @client.mkdir @dirName, (err, res) =>
+        @client.set "#{@dirName}/key", "value", (err, res) =>
+
+          # add in etcd
+          etcd.load @dirName, (err) =>
+
+            p config
+
+            do test.done
