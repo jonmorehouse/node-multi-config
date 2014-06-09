@@ -9,6 +9,10 @@
   "author": "Jon Morehouse <morehousej09@gmail.com> (http://github.com/jonmorehouse)",
   "homepage": "https://github.com/jonmorehouse/node-multi-config",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jonmorehouse/node-multi-config"
+  },
   "devDependencies": {
     "coffee-script": "^1.7.1"
   },
