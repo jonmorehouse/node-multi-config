@@ -92,6 +92,30 @@ module.exports =
           # add in etcd
           etcd.load @dirName, (err) =>
 
-            p config
-
+            test.deepEqual config[@dirName], {key: "value"}
             do test.done
+
+    testEtcdIntegers: (test) ->
+
+      @client.set "#{@dirName}/key", 10, (err, res) =>
+
+        etcd.load @dirName, (err) =>
+
+          test.equal config[@dirName].key, 10
+          #test.equal typeof config[@dirName].key, "number"
+          do test.done
+
+
+    testEtcdList: (test) ->
+
+      @client.set "#{@dirName}/key", ["name"], (err, res) =>
+
+        etcd.load @dirName, (err) =>
+
+          p typeof config[@dirName].key
+
+          do test.done
+
+
+
+
