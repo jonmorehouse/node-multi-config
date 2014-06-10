@@ -29,22 +29,22 @@ module.exports =
       test.deepEqual config[key], @obj[key]
     do test.done
 
-  testWatch: (test) ->
+  #testWatch: (test) ->
   
-    # get old value
-    key = "key_test"
-    val = config[key]
+    ## get old value
+    #key = "key_test"
+    #val = config[key]
 
-    _ = (val, cb) =>
-      @client.set key, val
-      __ = =>
-        test.deepEqual val, config[key]
-        cb?()
-      setTimeout __, 50
+    #_ = (val, cb) =>
+      #@client.set key, val
+      #__ = =>
+        #test.deepEqual val, config[key]
+        #cb?()
+      #setTimeout __, 50
 
-    async.eachSeries ["val1", "val2", "val3"], _, (err) =>    
+    #async.eachSeries ["val1", "val2", "val3"], _, (err) =>    
 
-      do test.done
+      #do test.done
 
   testDirectorySuite: 
 
@@ -102,7 +102,7 @@ module.exports =
         etcd.load @dirName, (err) =>
 
           test.equal config[@dirName].key, 10
-          #test.equal typeof config[@dirName].key, "number"
+          test.equal typeof config[@dirName].key, "number"
           do test.done
 
 
@@ -111,9 +111,7 @@ module.exports =
       @client.set "#{@dirName}/key", ["name"], (err, res) =>
 
         etcd.load @dirName, (err) =>
-
-          p typeof config[@dirName].key
-
+          test.equal config[@dirName].key instanceof Array, true
           do test.done
 
 

@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "async": "^0.8.0",
-    "coffeeson": "git://github.com/jonmorehouse/coffeeson",
-    "extend": "git://github.com/jonmorehouse/node-extend",
+    "coffeeson": "jonmorehouse/coffeeson",
+    "extend": "jonmorehouse/node-extend",
     "js-yaml": "^3.0.2",
-    "node-etcd": "git://github.com/jonmorehouse/node-etcd"
+    "node-etcd": "jonmorehouse/node-etcd"
   }
 }
