@@ -114,6 +114,3 @@ module.exports =
           test.equal config[@dirName].key instanceof Array, true
           do test.done
 
-
-
-
