@@ -32,24 +32,24 @@ setFromResponse = (res, cb) ->
     if not node.dir? or not res.node.dir
       # add nodes for each 
       h.setObject node.key, node.value, config, /[\/]+/
-    else
-      keys.push node.key
-
-  # if keys.length > 1 this all breaks
-  async.each keys, setFromKey, (err) ->
-    cb? err if err?
+      continue
+    keys.push node.key
+       
+  async.eachSeries keys, setFromKey, (err) ->
     cb?()
 
 setFromKey = (key, args...) ->
 
-  [opts, cb] = h.argParser args..., {recursive: true}
-  etcd.get key, (err, res) ->
-    return cb? err if err? 
-    counter = if res.node.nodes? then res.node.nodes.length - 1 else 1
+  _cb = null
+  [opts, _cb] = h.argParser args..., {recursive: true}
+  etcd.get key, (err, res) =>
+    return _cb? err if err 
+    counter = if res.node.nodes? then [node for node in res.node.nodes when node.dir?].length else 1
+
     setFromResponse res, (err) ->
-      counter -= 1
-      if counter == 0
-        cb?()
+
+      return _cb?()
+
 
 setWatcher = (key, cb) ->
   
@@ -82,7 +82,7 @@ load = (args...) ->
   opts.recursive ?= true
   etcd ?= getClient()
 
-  async.eachSeries keys, setFromKey, (err) ->
+  async.eachSeries keys, setFromKey, (err) =>
     return cb? err if err?
     
     if opts.watch? and opts.watch
