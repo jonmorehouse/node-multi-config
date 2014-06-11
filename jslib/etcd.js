@@ -52,23 +52,43 @@
       }
       keys.push(node.key);
     }
-    return async.each(keys, setFromKey, function(err) {
+    return async.eachSeries(keys, setFromKey, function(err) {
       return typeof cb === "function" ? cb() : void 0;
     });
   };
 
   setFromKey = function() {
-    var args, cb, key, opts, _ref;
+    var args, key, opts, _cb, _ref;
     key = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    _cb = null;
     _ref = h.argParser.apply(h, __slice.call(args).concat([{
       recursive: true
-    }])), opts = _ref[0], cb = _ref[1];
-    return etcd.get(key, function(err, res) {
-      if (err) {
-        return typeof cb === "function" ? cb(err) : void 0;
-      }
-      return setFromResponse(res, cb);
-    });
+    }])), opts = _ref[0], _cb = _ref[1];
+    return etcd.get(key, (function(_this) {
+      return function(err, res) {
+        var counter, node;
+        if (err) {
+          return typeof _cb === "function" ? _cb(err) : void 0;
+        }
+        counter = res.node.nodes != null ? [
+          (function() {
+            var _i, _len, _ref1, _results;
+            _ref1 = res.node.nodes;
+            _results = [];
+            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+              node = _ref1[_i];
+              if (node.dir != null) {
+                _results.push(node);
+              }
+            }
+            return _results;
+          })()
+        ].length : 1;
+        return setFromResponse(res, function(err) {
+          return typeof _cb === "function" ? _cb() : void 0;
+        });
+      };
+    })(this));
   };
 
   setWatcher = function(key, cb) {
