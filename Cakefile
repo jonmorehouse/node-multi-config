@@ -10,7 +10,7 @@ task "test", "Run all tests", ->
 
 task "build", "Build jslib", ->
 
-  coffee = spawn 'coffee', ['-c', '-o', 'jslib', 'lib']
+  coffee = spawn 'coffee', ['-c', '-o', 'js', 'lib']
   coffee.stderr.on 'data', (data)->
 
   coffee.stdout.on 'data', (data)->
