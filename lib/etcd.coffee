@@ -1,4 +1,3 @@
-Etcd = require 'node-etcd'
 require "./index"
 env = require "./env"
 async = require 'async'
@@ -10,9 +9,10 @@ etcd = null
 watchers = {}
 
 getClient = ->
-
     # return cached value is possible
     return etcd if etcd?
+
+    Etcd = require 'node-etcd'
 
     # set up required etcd configuration
     config.etcdHost ?= env.get "ETCD_HOST", "localhost"
@@ -55,7 +55,8 @@ setWatcher = (key, cb) ->
   
   # return if watcher already exists
   return cb?() if key of watchers
-
+  
+  Etcd = require 'node-etcd'
   # this is really hacky because there is something weird about the etcd library not playing nice
   _etc = new Etcd config.etcdHost, config.etcdPort
   watchers[key] = _etc.watcher key
